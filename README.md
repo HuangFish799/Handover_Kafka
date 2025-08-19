@@ -1,4 +1,11 @@
-# Handover Kafka
+# Handover Kafka 4.0 Version
+
+## 外部連結
+
+[Apache Kafka 4.0 Document](https://kafka.apache.org/documentation/)
+[GitHub Repo of Handover_Kafka](https://github.com/HuangFish799/Handover_Kafka)
+
+---
 
 ## 目錄
 
@@ -89,16 +96,22 @@ cd kafka_2.13-4.0.0
 
 2. **啟動 Kafka（使用 KRaft 模式）**
 
+產生叢集 uuid：
+
+```bash
+KAFKA_CLUSTER_ID="$(bin/kafka-storage.sh random-uuid)"
+```
+
 初始化 metadata：
 
 ```bash
-bin/kafka-storage.sh format -t $(uuidgen) -c config/kraft/server.properties
+bin/kafka-storage.sh format --standalone -t $KAFKA_CLUSTER_ID -c config/server.properties
 ```
 
 啟動 broker：
 
 ```bash
-bin/kafka-server-start.sh config/kraft/server.properties
+bin/kafka-server-start.sh config/server.properties
 ```
 
 3. **測試建立 Topic**
@@ -128,8 +141,8 @@ bin/kafka-console-consumer.sh --topic test-topic --from-beginning --bootstrap-se
 1. **複製多份配置檔**
 
 ```bash
-cp config/kraft/server.properties config/kraft/server-1.properties
-cp config/kraft/server.properties config/kraft/server-2.properties
+cp config/server.properties config/server-1.properties
+cp config/server.properties config/server-2.properties
 ```
 
 2. **修改每份設定**
@@ -158,18 +171,18 @@ listeners=PLAINTEXT://localhost:9094,CONTROLLER://localhost:9095
 log.dirs=/tmp/kafka-logs-2
 ```
 
-3. **初始化每個 Broker 的資料儲存（KRaft metadata）**
+3. **初始化每個 Broker 的資料儲存**
 
 ```bash
-bin/kafka-storage.sh format -t $(uuidgen) -c config/kraft/server-1.properties
-bin/kafka-storage.sh format -t $(uuidgen) -c config/kraft/server-2.properties
+bin/kafka-storage.sh format -t "$KAFKA_CLUSTER_ID" -c config/server-1.properties
+bin/kafka-storage.sh format -t "$KAFKA_CLUSTER_ID" -c config/server-2.properties
 ```
 
 4. **分別啟動兩個 Broker**
 
 ```bash
-bin/kafka-server-start.sh config/kraft/server-1.properties
-bin/kafka-server-start.sh config/kraft/server-2.properties
+bin/kafka-server-start.sh config/server-1.properties
+bin/kafka-server-start.sh config/server-2.properties
 ```
 
 ---
@@ -216,13 +229,13 @@ log.dirs=/data/kafka-logs
 1. 格式化儲存：
 
 ```bash
-bin/kafka-storage.sh format -t $(uuidgen) -c config/kraft/server.properties
+bin/kafka-storage.sh format -t "$KAFKA_CLUSTER_ID" -c config/server.properties
 ```
 
 2. 啟動每台機器的 Kafka Server：
 
 ```bash
-bin/kafka-server-start.sh config/kraft/server.properties
+bin/kafka-server-start.sh config/server.properties
 ```
 
 ### 驗證集群狀態

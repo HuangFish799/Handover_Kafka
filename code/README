@@ -1,0 +1,18 @@
+# 1) 建立 topic（互動輸入或直接參數）
+python .\create_topic.py --bootstrap ip_address
+# 或：
+python .\create_topic.py --bootstrap ip_address --topic test-topic --partitions 1 --replication 1
+
+# 2) 生產訊息
+# 2a. 單筆
+python .\produce_messages.py --topic test-topic --message "hello"
+# 2b. 互動輸入
+python .\produce_messages.py --topic test-topic
+# 2c. Excel 匯入（Sheet1，欄位至少 value，可選 key）
+python .\produce_messages.py --topic test-topic --excel .\messages.xlsx --sheet Sheet1
+
+# 3) 接收訊息（列出時間＋內容）
+python .\consume_messages.py --topic test-topic --group g-late --from-beginning
+
+# 4) 列出所有 topics
+python .\list_topics.py
