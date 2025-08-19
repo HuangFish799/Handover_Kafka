@@ -6,7 +6,7 @@ def send(p, topic, key, value):
         if err:
             print("送出失敗：", err)
         else:
-            print(f"✓ sent {msg.topic()}[{msg.partition()}]@{msg.offset()} key={msg.key()} value={msg.value()!r}")
+            print(f"sent {msg.topic()}[{msg.partition()}]@{msg.offset()} key={msg.key()} value={msg.value()!r}")
     p.produce(topic=topic, key=key, value=value, callback=cb)
     p.poll(0)
 

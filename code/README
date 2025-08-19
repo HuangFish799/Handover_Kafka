@@ -1,3 +1,6 @@
+# 0) 依賴套件
+pip install confluent-kafka pandas openpyxl
+
 # 1) 建立 topic（互動輸入或直接參數）
 python .\create_topic.py --bootstrap ip_address
 # 或：
