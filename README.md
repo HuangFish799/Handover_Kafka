@@ -2,10 +2,9 @@
 
 ## 外部連結
 
-[Apache Kafka 4.0 Document](https://kafka.apache.org/documentation/)
-[GitHub Repo of Handover_Kafka](https://github.com/HuangFish799/Handover_Kafka)
+-   [Apache Kafka 4.0 Document](https://kafka.apache.org/documentation/)
+-   [GitHub Repo of Handover_Kafka](https://github.com/HuangFish799/Handover_Kafka)
 
----
 
 ## 目錄
 
